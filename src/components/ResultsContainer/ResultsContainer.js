@@ -21,7 +21,6 @@ export default function ResultsContainer({ searchData }) {
   return (
     <div className={style.results}>
       {results === null && query ? <p>No Results for {query}</p> : ''}
-      {results === null && query === null ? <p>No Results</p> : ''}
       {results
         ? results.map((result, index) => (
             <div key={'result-card-' + index}>

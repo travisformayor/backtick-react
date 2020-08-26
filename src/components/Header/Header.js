@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -15,14 +16,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ fetchResults }) {
+export default function Header({ setSearchTerm, existingTerm }) {
   const style = useStyles();
 
   return (
     <>
-      <p className={style.title}>Backtick`</p>
+      <div className={style.title}>
+        <Link href="/" color="textPrimary" underline="none">
+          Backtick`
+        </Link>
+      </div>
       <div className={style.search}>
-        <SearchBar fetchResults={fetchResults} />
+        <SearchBar setSearchTerm={setSearchTerm} existingTerm={existingTerm} />
       </div>
     </>
   );
