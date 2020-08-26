@@ -56,7 +56,7 @@ export default function ResultsCard({ result }) {
   );
 
   return (
-    <Card className={style.card} variant="outlined">
+    <Card className={style.card}>
       <CardActionArea
         className={style.content}
         href={url}
