@@ -13,12 +13,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ResultsContainer({ searchData }) {
-  const { results, query, offset, total } = searchData;
+  // const { results, query, offset, total } = searchData;
+  const { results, query } = searchData;
 
   const style = useStyles();
 
   return (
     <div className={style.results}>
+      {results === null && query ? <p>No Results for {query}</p> : ''}
+      {results === null && query === null ? <p>No Results</p> : ''}
       {results
         ? results.map((result, index) => (
             <div key={'result-card-' + index}>
@@ -26,7 +29,6 @@ export default function ResultsContainer({ searchData }) {
             </div>
           ))
         : ''}
-      {results === null ? <p>No Results</p> : ''}
     </div>
   );
 }
