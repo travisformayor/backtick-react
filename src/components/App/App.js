@@ -2,6 +2,7 @@
 // scroll switches to mini-header for easy followup searches
 // header displays total found
 // scroll lazy loads more results
+// hover over cards effect
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
