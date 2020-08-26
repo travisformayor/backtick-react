@@ -22,7 +22,7 @@ export default function ResultsContainer({ searchData }) {
       {results
         ? results.map((result, index) => (
             <div key={'result-card-' + index}>
-              <ResultCard data={result} />
+              <ResultCard result={result} />
             </div>
           ))
         : ''}

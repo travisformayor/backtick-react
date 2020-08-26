@@ -1,4 +1,8 @@
-// to do: add search to url
+// to dos: 
+// add search to url
+// scroll switches to mini-header for easy followup searches
+// header displays total found
+// scroll lazy loads more results
 
 import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
