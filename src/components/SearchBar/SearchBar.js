@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, InputBase, Divider, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -23,25 +23,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchBar({ fetchResults }) {
+export default function SearchBar({ setSearchTerm, existingTerm }) {
+  const [term, setTerm] = useState('');
   const style = useStyles();
-  const [search, setSearch] = useState('');
 
-  function handleSearchChange(e) {
-    setSearch(e.target.value);
+  function handleInputChange(e) {
+    setTerm(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetchResults(search);
+    setSearchTerm(term);
   }
+
+  useEffect(() => {
+    // Save if an existing term was passed in 
+    if (existingTerm) {
+      setTerm(existingTerm); 
+      console.log(existingTerm);
+    }
+  }, [existingTerm]);
 
   return (
     <Paper component="form" onSubmit={handleSubmit} className={style.root}>
       <InputBase
         className={style.input}
-        value={search}
-        onChange={handleSearchChange}
+        value={term}
+        onChange={handleInputChange}
         autoFocus={true}
         placeholder="Search the Tildeverse"
         inputProps={{ 'aria-label': 'search the tildeverse' }}

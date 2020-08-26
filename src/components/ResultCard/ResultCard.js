@@ -17,6 +17,7 @@ const useStyles = makeStyles({
   },
   match: {
     fontWeight: 800,
+    color: '#212121',
   },
   subtitle: {
     fontSize: '.75rem',
@@ -30,7 +31,12 @@ export default function ResultsCard({ result }) {
 
   return (
     <Card className={style.card} variant="outlined">
-      <CardActionArea className={style.content} href={url} target="_blank">
+      <CardActionArea
+        className={style.content}
+        href={url}
+        target="_blank"
+        rel="noopener"
+      >
         <CardContent>
           <Typography gutterBottom variant="h6">
             {title}
