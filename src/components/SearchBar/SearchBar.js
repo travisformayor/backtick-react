@@ -42,6 +42,7 @@ export default function SearchBar({ fetchResults }) {
         className={style.input}
         value={search}
         onChange={handleSearchChange}
+        autoFocus={true}
         placeholder="Search the Tildeverse"
         inputProps={{ 'aria-label': 'search the tildeverse' }}
       />
