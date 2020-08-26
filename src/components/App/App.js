@@ -18,7 +18,6 @@ export default function App() {
       const res = await axios(`https://backtick.tilde.wtf/search?q=${search}`);
       const data = await res.data;
       setSearchData(data);
-      console.log(searchData);
     } else {
       const blank = { 'results': null, 'query': null, 'offset': 0, 'total': 0 };
       setSearchData(blank);
