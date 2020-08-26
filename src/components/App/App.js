@@ -20,7 +20,7 @@ export default function App() {
       setSearchData(data);
       console.log(searchData);
     } else {
-      const blank = { 'results': null, 'query': '', 'offset': 0, 'total': 0 };
+      const blank = { 'results': null, 'query': null, 'offset': 0, 'total': 0 };
       setSearchData(blank);
     }
   }
