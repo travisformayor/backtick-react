@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function App() {
+export default function Header({ fetchResults }) {
   const style = useStyles();
 
   return (
     <>
       <p className={style.title}>Backtick`</p>
       <div className={style.search}>
-        <SearchBar />
+        <SearchBar fetchResults={fetchResults} />
       </div>
     </>
   );
