@@ -40,7 +40,6 @@ export default function SearchBar({ setSearchTerm, existingTerm }) {
     // Save if an existing term was passed in 
     if (existingTerm) {
       setTerm(existingTerm); 
-      console.log(existingTerm);
     }
   }, [existingTerm]);
 
