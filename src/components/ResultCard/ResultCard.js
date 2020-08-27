@@ -7,10 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import reactStringReplace from 'react-string-replace';
 import newId from '../../utils/newId';
 
-export default function ResultCard({ result, addRef }) {
+export default function ResultCard({ result, returnRef }) {
   const useStyles = makeStyles({
     card: {
       margin: '10px',
+      opacity: 0,
     },
     content: {
       width: 300,
@@ -59,7 +60,7 @@ export default function ResultCard({ result, addRef }) {
   let cardRef = useRef(null);
 
   useEffect(() => {
-    if (cardRef) addRef(cardRef.current);
+    if (cardRef) returnRef(cardRef.current);
   });
 
   return (
