@@ -1,52 +1,52 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import reactStringReplace from 'react-string-replace';
+import newId from '../../utils/newId';
 
-const useStyles = makeStyles({
-  card: {
-    margin: '10px',
-  },
-  content: {
-    width: 300,
-    height: 225,
-  },
-  match: {
-    fontWeight: 800,
-    color: '#212121',
-  },
-  subtitle: {
-    fontSize: '.75rem',
-  },
-});
-
-function truncText(string, limit) {
-  if (string) {
-    return string.length < limit ? string : string.slice(0, limit) + '...';
-  } else {
-    console.log(`missing json result`);
-  }
-}
-
-function crawlDate(dateString) {
-  if (dateString) {
-    return `Checked On ${new Date(dateString).toLocaleDateString()}`;
-  } else {
-    return '';
-  }
-}
-
-export default function ResultsCard({ result }) {
+export default function ResultCard({ result, addRef }) {
+  const useStyles = makeStyles({
+    card: {
+      margin: '10px',
+    },
+    content: {
+      width: 300,
+      height: 225,
+    },
+    match: {
+      fontWeight: 800,
+      color: '#212121',
+    },
+    subtitle: {
+      fontSize: '.75rem',
+    },
+  });
   const style = useStyles();
 
-  const title = truncText(result.title, 25);
-  const url = truncText(result.url, 45);
+  function truncObjText(obj, key, limit) {
+    if (obj[key]) {
+      return obj[key].length < limit
+        ? obj[key]
+        : obj[key].slice(0, limit) + '...';
+    } else {
+      return `Missing result for ${key}`;
+    }
+  }
+  function crawlDate(dateString) {
+    if (dateString) {
+      return `Checked On ${new Date(dateString).toLocaleDateString()}`;
+    } else {
+      return '';
+    }
+  }
+  const title = truncObjText(result, 'title', 25);
+  const url = truncObjText(result, 'url', 45);
   const lastCrawl = crawlDate(result.crawledon);
   const headline = reactStringReplace(
-    truncText(result.headline, 200),
+    truncObjText(result, 'headline', 200),
     /<\s*b[^>]*>(.*?)<\s*\/\s*b>/g,
     (match, i) => (
       <span key={i} className={style.match}>
@@ -55,8 +55,15 @@ export default function ResultsCard({ result }) {
     )
   );
 
+  const id = newId('card');
+  let cardRef = useRef(null);
+
+  useEffect(() => {
+    if (cardRef) addRef(cardRef.current);
+  });
+
   return (
-    <Card className={style.card}>
+    <Card className={style.card} ref={cardRef} id={id}>
       <CardActionArea
         className={style.content}
         href={url}

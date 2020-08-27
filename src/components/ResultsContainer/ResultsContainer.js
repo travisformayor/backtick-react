@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { gsap } from 'gsap';
 import ResultCard from '../ResultCard/ResultCard';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -15,17 +16,31 @@ const useStyles = makeStyles((theme) => ({
 export default function ResultsContainer({ searchData }) {
   // const { results, query, offset, total } = searchData;
   const { results, query } = searchData;
-
   const style = useStyles();
+
+  let refCards = [];
+
+  function addRef(ref) {
+    refCards.push(ref);
+    return ref; // returned for ResultCard
+  }
+
+  useEffect(() => {
+    if (refCards.length > 0) {
+      gsap.from(refCards, { duration: 0.5, opacity: 0, y: 100, stagger: 0.25 });
+    }
+  });
 
   return (
     <div className={style.results}>
       {results === null && query ? <p>No Results for {query}</p> : ''}
       {results
         ? results.map((result, index) => (
-            <div key={'result-card-' + index}>
-              <ResultCard result={result} />
-            </div>
+            <ResultCard
+              result={result}
+              addRef={addRef}
+              key={'result-card-' + index}
+            />
           ))
         : ''}
     </div>
