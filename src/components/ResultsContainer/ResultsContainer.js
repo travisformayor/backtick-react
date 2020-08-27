@@ -20,19 +20,24 @@ export default function ResultsContainer({ searchData }) {
 
   let refCards = [];
 
-  function addRef(ref) {
+  function returnRef(ref) {
+    // Returns the child ref back to this component
     refCards.push(ref);
-    return ref; // returned for ResultCard
+    return ref; // this is for ResultCard
   }
 
   useEffect(() => {
     if (refCards.length > 0) {
-      gsap.from(refCards, {
-        duration: 0.2,
-        opacity: 0,
-        y: 100,
-        stagger: 0.1,
-      });
+      gsap.fromTo(
+        refCards,
+        { y: 100 },
+        {
+          duration: 0.2,
+          opacity: 1, // opacity 0 set in ResultCard
+          y: 0,
+          stagger: 0.1,
+        }
+      );
     }
   });
 
@@ -43,7 +48,7 @@ export default function ResultsContainer({ searchData }) {
         ? results.map((result, index) => (
             <ResultCard
               result={result}
-              addRef={addRef}
+              returnRef={returnRef}
               key={'result-card-' + index}
             />
           ))
