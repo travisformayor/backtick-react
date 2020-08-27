@@ -42,10 +42,10 @@ export default function ResultCard({ result, addRef }) {
       return '';
     }
   }
-  const title = truncObjText(result, 'title', 25);
-  const url = truncObjText(result, 'url', 45);
-  const lastCrawl = crawlDate(result.crawledon);
-  const headline = reactStringReplace(
+  const cardTitle = truncObjText(result, 'title', 25);
+  const cardUrl = truncObjText(result, 'url', 45);
+  const cardDate = crawlDate(result.crawledon);
+  const cardText = reactStringReplace(
     truncObjText(result, 'headline', 200),
     /<\s*b[^>]*>(.*?)<\s*\/\s*b>/g,
     (match, i) => (
@@ -66,21 +66,21 @@ export default function ResultCard({ result, addRef }) {
     <Card className={style.card} ref={cardRef} id={id}>
       <CardActionArea
         className={style.content}
-        href={url}
+        href={result.url}
         target="_blank"
         rel="noopener"
       >
         <CardContent>
           <Typography gutterBottom variant="h6">
-            {title}
+            {cardTitle}
           </Typography>
           <Typography variant="subtitle2" className={style.subtitle}>
-            {url}
+            {cardUrl}
             <br />
-            {lastCrawl}
+            {cardDate}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {headline}
+            {cardText}
           </Typography>
         </CardContent>
       </CardActionArea>
