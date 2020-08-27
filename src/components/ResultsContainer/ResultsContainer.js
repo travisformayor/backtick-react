@@ -27,7 +27,12 @@ export default function ResultsContainer({ searchData }) {
 
   useEffect(() => {
     if (refCards.length > 0) {
-      gsap.from(refCards, { duration: 0.5, opacity: 0, y: 100, stagger: 0.25 });
+      gsap.from(refCards, {
+        duration: 0.2,
+        opacity: 0,
+        y: 100,
+        stagger: 0.1,
+      });
     }
   });
 
