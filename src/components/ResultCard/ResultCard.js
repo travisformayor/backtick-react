@@ -29,9 +29,11 @@ export default function ResultCard({ result, returnRef }) {
 
   function truncObjText(obj, key, limit) {
     if (obj[key]) {
-      return obj[key].length < limit
-        ? obj[key]
-        : obj[key].slice(0, limit) + '...';
+      if (obj[key].length <= limit) {
+        return obj[key];
+      } else {
+        return obj[key].slice(0, limit) + '...';
+      }
     } else {
       return `Missing result for ${key}`;
     }
