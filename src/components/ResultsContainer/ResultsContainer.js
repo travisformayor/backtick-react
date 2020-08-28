@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   results: {
+    paddingTop: '160px',
     margin: '10px 10px',
     display: 'flex',
     flexDirection: 'row',
@@ -18,18 +19,18 @@ export default function ResultsContainer({ searchData }) {
   const { results, query } = searchData;
   const style = useStyles();
 
-  let refCards = [];
+  let cardRefs = [];
 
   function returnRef(ref) {
     // Returns the child ref back to this component
-    refCards.push(ref);
+    cardRefs.push(ref);
     return ref; // this is for ResultCard
   }
 
   useEffect(() => {
-    if (refCards.length > 0) {
+    if (cardRefs.length > 0) {
       gsap.fromTo(
-        refCards,
+        cardRefs,
         { y: 100 },
         {
           duration: 0.2,
