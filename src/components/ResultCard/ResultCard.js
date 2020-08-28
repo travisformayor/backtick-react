@@ -14,8 +14,8 @@ export default function ResultCard({ result, returnRef }) {
       opacity: 0,
     },
     content: {
-      width: 300,
-      height: 225,
+      maxWidth: 300,
+      minHeight: 230,
     },
     match: {
       fontWeight: 800,
