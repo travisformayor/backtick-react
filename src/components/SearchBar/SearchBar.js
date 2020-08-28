@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    width: '100%',
+    maxWidth: 400,
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -37,9 +38,9 @@ export default function SearchBar({ setSearchTerm, existingTerm }) {
   }
 
   useEffect(() => {
-    // Save if an existing term was passed in 
+    // Save if an existing term was passed in
     if (existingTerm) {
-      setTerm(existingTerm); 
+      setTerm(existingTerm);
     }
   }, [existingTerm]);
 
