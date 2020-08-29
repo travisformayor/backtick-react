@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: 'white',
     padding: '15px',
-    // paddingBottom: '20px',
     boxShadow: '0px 2px 5px rgba(0,0,0,0.12)',
     // Fixed Header
     position: 'fixed',
@@ -27,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: 'center',
     fontSize: '4rem',
+  },
+  logoLink: {
+    lineHeight: 0,
   },
   search: {
     display: 'flex',
@@ -51,26 +53,20 @@ export default function Header({ setSearchTerm, existingTerm }) {
     // Remove Title
     tl.fromTo(
       titleRef.current,
-      { y: 0, x: 0, opacity: 1, height: '90px' },
-      {
-        y: 10,
-        x: 0,
-        opacity: 0,
-        height: '0px',
-        display: 'none',
-        duration: 0.25,
-      }
+      { opacity: 1, height: '90px' },
+      { opacity: 0, height: '0px', display: 'none', duration: 0.2 }
     );
     // Expand Logo
     tl.fromTo(
       logoRef.current,
       { height: '0px', marginRight: '0px', opacity: 0 },
-      { height: '45px', marginRight: '10px', opacity: 1, duration: 0.25 },
-      '-=0.25'
+      { height: '40px', marginRight: '10px', opacity: 1, duration: 0.25 },
+      '-=0.2'
     );
   }, [tl]);
 
   useEffect(() => {
+    // Animate header change on scroll
     window.addEventListener('scroll', resizeOnScroll);
     function resizeOnScroll() {
       const scrollY = window.pageYOffset || document.documentElement.scrollTop;
@@ -82,6 +78,9 @@ export default function Header({ setSearchTerm, existingTerm }) {
         if (tl) tl.reverse();
       }
     }
+
+    // Remove event listener on component unmount
+    return () => window.removeEventListener('scroll', resizeOnScroll);
   }, [tl]);
 
   return (
@@ -92,9 +91,17 @@ export default function Header({ setSearchTerm, existingTerm }) {
         </Link>
       </div>
       <div className={style.search} ref={searchBoxRef}>
-        <img src={logo} alt="Logo" ref={logoRef} />
+        <Link
+          className={style.logoLink}
+          href="/"
+          color="textPrimary"
+          underline="none"
+        >
+          <img src={logo} alt="Logo" ref={logoRef} />
+        </Link>
         <SearchBar setSearchTerm={setSearchTerm} existingTerm={existingTerm} />
       </div>
+      {/* to do: add a 'displaying 30 of 130 results' line */}
     </div>
   );
 }
