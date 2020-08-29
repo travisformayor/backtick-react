@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
 import { Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchBar from '../SearchBar/SearchBar';
@@ -39,58 +38,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ setSearchTerm, existingTerm }) {
+export default function Header({ setSearchTerm, existingTerm, returnRef }) {
   const style = useStyles();
-
-  const tl = gsap.timeline({ paused: true });
-  let headerRef = useRef(null);
   let titleRef = useRef(null);
   let logoRef = useRef(null);
-  let searchBoxRef = useRef(null);
 
   useEffect(() => {
-    // == Animate using mounted refs
-    // Remove Title
-    tl.fromTo(
-      titleRef.current,
-      { opacity: 1, height: '90px', display: 'block' },
-      { opacity: 0, height: '0px', display: 'none', duration: 0.2 }
-    );
-    // Expand Logo
-    tl.fromTo(
-      logoRef.current,
-      { height: '0px', marginRight: '0px', opacity: 0 },
-      { height: '40px', marginRight: '10px', opacity: 1, duration: 0.25 },
-      '-=0.2'
-    );
-  }, [tl]);
-
-  useEffect(() => {
-    // Animate header change on scroll
-    window.addEventListener('scroll', resizeOnScroll);
-    function resizeOnScroll() {
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      const resizeOn = 55;
-
-      if (scrollY > resizeOn) {
-        if (tl) tl.play();
-      } else {
-        if (tl) tl.reverse();
-      }
-    }
-
-    // Remove event listener on component unmount
-    return () => window.removeEventListener('scroll', resizeOnScroll);
-  }, [tl]);
+    // Send the refs up on component mount
+    if (titleRef) returnRef(titleRef.current, 'title');
+    if (logoRef) returnRef(logoRef.current, 'logo');
+  });
 
   return (
-    <div className={style.header} ref={headerRef}>
+    <div className={style.header}>
       <div className={style.title} ref={titleRef}>
         <Link href="/" color="textPrimary" underline="none">
           Backtick`
         </Link>
       </div>
-      <div className={style.search} ref={searchBoxRef}>
+      <div className={style.search}>
         <Link
           className={style.logoLink}
           href="/"

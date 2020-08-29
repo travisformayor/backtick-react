@@ -16,6 +16,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { gsap } from 'gsap';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from '../Header/Header';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
@@ -27,6 +28,61 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const urlParams = useParams();
+
+  // === GSAP Animations
+  const headerTimeline = gsap.timeline({ paused: true });
+  const headerRefs = { title: null, logo: null };
+
+  function returnRef(ref, item) {
+    if (ref) {
+      switch (item) {
+        case 'logo':
+          headerRefs.logo = ref;
+          break;
+        case 'title':
+          headerRefs.title = ref;
+          break;
+        default:
+          console.log(`Unexpected ref: ${item}`);
+      }
+    }
+  }
+
+  useEffect(() => {
+    // Set header animations with updated refs
+    if (headerRefs.logo && headerRefs.title) {
+      // Hide Title
+      headerTimeline.fromTo(
+        headerRefs.title,
+        { opacity: 1, height: '90px', display: 'block' },
+        { opacity: 0, height: '0px', display: 'none', duration: 0.2 }
+      );
+      // Expand Logo
+      headerTimeline.fromTo(
+        headerRefs.logo,
+        { height: '0px', marginRight: '0px', opacity: 0 },
+        { height: '40px', marginRight: '10px', opacity: 1, duration: 0.25 },
+        '-=0.2'
+      );
+    }
+  }, [headerTimeline, headerRefs]);
+
+  useEffect(() => {
+    // Scroll listener for header animations
+    window.addEventListener('scroll', resizeOnScroll);
+    function resizeOnScroll() {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const resizeOn = 55;
+
+      if (scrollY > resizeOn) {
+        if (headerTimeline) headerTimeline.play();
+      } else {
+        if (headerTimeline) headerTimeline.reverse();
+      }
+    }
+    // Remove event listener on component unmount
+    return () => window.removeEventListener('scroll', resizeOnScroll);
+  });
 
   // === API Functions
   async function endpointCallout(term, offset = 0) {
@@ -110,7 +166,11 @@ export default function App() {
   return (
     <>
       <CssBaseline />
-      <Header setSearchTerm={setSearchTerm} existingTerm={searchTerm} />
+      <Header
+        setSearchTerm={setSearchTerm}
+        existingTerm={searchTerm}
+        returnRef={returnRef}
+      />
       <ResultsContainer
         resultData={resultData}
         fetchMore={fetchMore}
