@@ -24,7 +24,6 @@ import axios from 'axios';
 export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [resultData, setResultData] = useState({ results: [] });
-  const [newOffset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const urlParams = useParams();
@@ -33,7 +32,7 @@ export default function App() {
   async function endpointCallout(term, offset = 0) {
     // Fetch Results
     setLoading(true);
-    console.log(`Perform Search: ${term}`);
+    console.log(`Callout for term: ${term}`);
     const endpoint = 'https://backtick.tilde.wtf';
     const params = `search?q=${term}&offset=${offset}`;
     console.log(`${endpoint}/${params}`);
@@ -44,10 +43,17 @@ export default function App() {
     return res.data;
   }
 
-  async function fetchMore() {
-    console.log('Current Loading: ' + loading);
-    console.log(searchTerm);
-    if (!loading) {
+  async function fetchMore(newOffset) {
+    const updateCriteria =
+      newOffset &&
+      newOffset > 0 && // Not the first offset
+      newOffset === resultData.results.length && // maxed out the current offset
+      resultData.results.length % 30 === 0 && // current results is a multiple of 30
+      !loading; // Not already performing a callout
+
+    if (updateCriteria) {
+      console.log('Valid offset request. Fetching more...');
+
       const data = await endpointCallout(searchTerm, newOffset);
       setResultData({
         results:
@@ -59,9 +65,13 @@ export default function App() {
         total: data.total ? parseInt(data.total) : 0,
       });
     } else {
-      console.log('already loading more...');
+      console.log('Failed requirements for fetchMore');
     }
   }
+
+  useEffect(() => {
+    console.log(`Loading State: ${loading}`);
+  }, [loading]);
 
   useEffect(() => {
     // == Handle url containing a search term
@@ -97,29 +107,13 @@ export default function App() {
     }
   }, [searchTerm, history]);
 
-  useEffect(() => {
-    // == Handle more results for the same search term
-    const updateCriteria =
-      newOffset &&
-      newOffset > 0 && // Not the first offset
-      newOffset === resultData.results.length && // maxed out the current offset
-      resultData.results.length % 30 === 0 && // current results is a multiple of 30
-      resultData.results.length < resultData.total; // more results available
-
-    if (updateCriteria) {
-      console.log('New valid offset. Fetching more...');
-      fetchMore();
-    }
-    // https://reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often
-  }, [newOffset]);
-
   return (
     <>
       <CssBaseline />
       <Header setSearchTerm={setSearchTerm} existingTerm={searchTerm} />
       <ResultsContainer
         resultData={resultData}
-        setOffset={setOffset}
+        fetchMore={fetchMore}
         loading={loading}
       />
     </>
