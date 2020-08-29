@@ -53,7 +53,7 @@ export default function Header({ setSearchTerm, existingTerm }) {
     // Remove Title
     tl.fromTo(
       titleRef.current,
-      { opacity: 1, height: '90px' },
+      { opacity: 1, height: '90px', display: 'block' },
       { opacity: 0, height: '0px', display: 'none', duration: 0.2 }
     );
     // Expand Logo
