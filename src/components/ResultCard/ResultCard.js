@@ -27,7 +27,7 @@ export default function ResultCard({ result, returnRef }) {
   const style = useStyles();
 
   function truncObjText(obj, key, limit) {
-    // to do: for urls, add the end back on. 
+    // to do: for urls, add the end back on.
     // (cont.) ie "site...k/extra". Around 12 chars.
 
     if (obj && obj[key]) {
