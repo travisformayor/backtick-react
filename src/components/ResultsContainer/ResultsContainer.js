@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import ResultCard from '../ResultCard/ResultCard';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,25 +22,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ResultsContainer({ resultData, setOffset, loading }) {
+export default function ResultsContainer(props) {
+  const { resultData, fetchMore, loading } = props;
   // to do: use loading for triggering bouncing ball animation
   // const { results, query, offset, total } = searchData;
   const { results, query, offset, total } = resultData;
+  const [fetching, setFetchMore] = useState(false);
   const style = useStyles();
-  let cardRefs = [];
 
+  // === Card Refs
+  let cardRefs = [];
   function returnRef(ref) {
     // Returns the child ref back to this component
-    cardRefs.push(ref);
-    return ref; // this is for ResultCard
+    if (ref) {
+      cardRefs.push(ref);
+      // console.log(ref);
+      return ref; // returned for ResultCard
+    }
   }
 
   useEffect(() => {
     // Animate populating cards
-
-    // to do: if the card's opacity is already 1, skip/remove it from refs array
     if (cardRefs.length > 0) {
-      // card opacity set to 0 in ResultCard.js
+      console.log('=> run animation');
+      // card opacity is set to 0 in ResultCard.js
       gsap.fromTo(
         cardRefs,
         { y: 50 },
@@ -59,13 +64,10 @@ export default function ResultsContainer({ resultData, setOffset, loading }) {
         document.documentElement.offsetHeight
       ) {
         if (results.length < total) {
-          if (offset + 30 !== results.length) {
-            console.log('Unexpected number of results');
-            console.log(offset);
-            console.log(results);
+          if (!loading) {
+            setFetchMore(true);
           } else {
-            console.log('Set new offset');
-            setOffset(offset + 30);
+            console.log('Still loading results...');
           }
         } else {
           console.log('No more results');
@@ -75,8 +77,15 @@ export default function ResultsContainer({ resultData, setOffset, loading }) {
 
     // Remove event listener on component unmount
     return () => window.removeEventListener('scroll', bottomScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resultData]);
+  });
+
+  useEffect(() => {
+    if (fetching) {
+      console.log('Request more results...');
+      setFetchMore(false);
+      fetchMore(offset + 30);
+    }
+  }, [fetching, fetchMore, offset]);
 
   return (
     <>
