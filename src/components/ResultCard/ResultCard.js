@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,24 +7,27 @@ import Typography from '@material-ui/core/Typography';
 import reactStringReplace from 'react-string-replace';
 import newId from '../../utils/newId';
 
+const useStyles = makeStyles({
+  card: {
+    opacity: 0,
+  },
+  content: {
+    width: 300,
+    minHeight: 230,
+  },
+  match: {
+    fontWeight: 800,
+    color: '#212121',
+  },
+  subtitle: {
+    fontSize: '.75rem',
+  },
+});
+
 export default function ResultCard({ result, returnRef }) {
-  const useStyles = makeStyles({
-    card: {
-      opacity: 0,
-    },
-    content: {
-      width: 300,
-      minHeight: 230,
-    },
-    match: {
-      fontWeight: 800,
-      color: '#212121',
-    },
-    subtitle: {
-      fontSize: '.75rem',
-    },
-  });
   const style = useStyles();
+  const id = newId('card');
+  let cardRef = useRef(null);
 
   function truncObjText(obj, key, limit) {
     // to do: for urls, add the end back on.
@@ -59,9 +62,6 @@ export default function ResultCard({ result, returnRef }) {
       </span>
     )
   );
-
-  const id = newId('card');
-  let cardRef = useRef(null);
 
   useEffect(() => {
     if (cardRef) returnRef(cardRef.current);
