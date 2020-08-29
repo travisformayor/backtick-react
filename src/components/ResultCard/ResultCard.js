@@ -10,11 +10,10 @@ import newId from '../../utils/newId';
 export default function ResultCard({ result, returnRef }) {
   const useStyles = makeStyles({
     card: {
-      margin: '10px',
       opacity: 0,
     },
     content: {
-      maxWidth: 300,
+      width: 300,
       minHeight: 230,
     },
     match: {
@@ -28,7 +27,10 @@ export default function ResultCard({ result, returnRef }) {
   const style = useStyles();
 
   function truncObjText(obj, key, limit) {
-    if (obj[key]) {
+    // to do: for urls, add the end back on. 
+    // (cont.) ie "site...k/extra". Around 12 chars.
+
+    if (obj && obj[key]) {
       if (obj[key].length <= limit) {
         return obj[key];
       } else {
@@ -38,16 +40,16 @@ export default function ResultCard({ result, returnRef }) {
       return `Missing result for ${key}`;
     }
   }
-  function crawlDate(dateString) {
-    if (dateString) {
-      return `Checked On ${new Date(dateString).toLocaleDateString()}`;
+  function crawlDate(obj, key) {
+    if (obj && obj[key]) {
+      return `Checked On ${new Date(obj[key]).toLocaleDateString()}`;
     } else {
       return '';
     }
   }
   const cardTitle = truncObjText(result, 'title', 25);
   const cardUrl = truncObjText(result, 'url', 45);
-  const cardDate = crawlDate(result.crawledon);
+  const cardDate = crawlDate(result, 'crawledon');
   const cardText = reactStringReplace(
     truncObjText(result, 'headline', 200),
     /<\s*b[^>]*>(.*?)<\s*\/\s*b>/g,
