@@ -25,6 +25,7 @@ const useStyles = makeStyles({
 });
 
 export default function ResultCard({ result, returnRef }) {
+  // ResultCard.js handles displaying individual results
   const style = useStyles();
   const id = newId('card');
   let cardRef = useRef(null);

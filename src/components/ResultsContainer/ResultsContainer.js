@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ResultsContainer(props) {
+  // ResultsContainer.js handles displaying the result cards
   const { resultData, returnRef, fetchMore, loading } = props;
   // to do: use loading for triggering bouncing ball animation
   // const { results, query, offset, total } = searchData;
