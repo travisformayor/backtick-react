@@ -36,9 +36,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
   },
+  info: {
+    padding: '5px',
+    height: '.75rem',
+    fontSize: '.75rem',
+    color: '#616161',
+  },
 }));
 
-export default function Header({ setSearchTerm, existingTerm, returnRef }) {
+export default function Header(props) {
+  const { setSearchTerm, existingTerm, returnRef, current, total } = props;
   // Header.js handles title bar and the search box
   const style = useStyles();
   const titleRef = useRef(null);
@@ -79,6 +86,15 @@ export default function Header({ setSearchTerm, existingTerm, returnRef }) {
           <img src={logo} alt="Logo" ref={logoRef} />
         </Link>
         <SearchBar setSearchTerm={setSearchTerm} existingTerm={existingTerm} />
+      </div>
+      <div className={style.info}>
+        {current > 0 && total > 0 ? (
+          <span>
+            Displaying {current} of {total}
+          </span>
+        ) : (
+          <span></span>
+        )}
       </div>
     </div>
   );

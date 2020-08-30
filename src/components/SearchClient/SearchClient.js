@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function SearchClient({ urlParams, history, returnRef }) {
   // Search.js handles search, endpoint access, and displaying results
   const [searchTerm, setSearchTerm] = useState(urlParams.search);
-  const [resultData, setResultData] = useState({ results: [] });
+  const [resultData, setResultData] = useState({ results: [], total: 0 });
   const [loading, setLoading] = useState(false);
 
   // === Callout Functions
@@ -82,6 +82,8 @@ export default function SearchClient({ urlParams, history, returnRef }) {
         setSearchTerm={setSearchTerm}
         existingTerm={searchTerm}
         returnRef={returnRef}
+        current={resultData.results.length}
+        total={resultData.total}
       />
       <ResultsContainer
         resultData={resultData}
