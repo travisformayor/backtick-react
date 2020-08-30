@@ -36,15 +36,16 @@ export default function SearchClient({ urlParams, history, returnRef }) {
       console.log('Valid offset request. Fetching more...');
 
       const data = await endpointCallout(searchTerm, newOffset);
-      setResultData({
+
+      setResultData((resultData) => ({
         results:
           data.results && data.results.length > 0
             ? [...resultData.results, ...data.results]
-            : resultData.results,
+            : [...resultData.results],
         query: data.query ? data.query : null,
         offset: data.offset ? parseInt(data.offset) : 0,
         total: data.total ? parseInt(data.total) : 0,
-      });
+      }));
     } else {
       console.log('Failed requirements for fetchMore');
     }
