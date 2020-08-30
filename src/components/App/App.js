@@ -34,7 +34,7 @@ export default function App() {
     if (ref) {
       switch (item) {
         case 'card':
-          setCards(cards => [...cards, ref]);
+          setCards((cards) => [...cards, ref]);
           break;
         case 'title':
           refs.title = ref;
@@ -50,13 +50,13 @@ export default function App() {
 
   useEffect(() => {
     // Animate populating cards
-    console.log("Entering useEffect for cards", cards.length);
+    // console.log('Entering useEffect for cards', cards.length);
     if (cards.length > 0) {
-      console.log('=> run card animation');
-      console.log(`Cards to animate: ${cards.length}`);
+      // console.log('=> run card animation');
+      // console.log(`Cards to animate: ${cards.length}`);
       // card opacity is set to 0 in ResultCard.js
       gsap.fromTo(
-        cards.map(card => {
+        cards.map((card) => {
           card.classList.add('animated');
           return card;
         }),

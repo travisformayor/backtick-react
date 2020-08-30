@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header({ setSearchTerm, existingTerm, returnRef }) {
-    // Header.js handles title bar and the search box
+  // Header.js handles title bar and the search box
   const style = useStyles();
   const titleRef = useRef(null);
   const logoRef = useRef(null);

@@ -62,7 +62,12 @@ export default function ResultCard({ result, returnRef }) {
   );
 
   useEffect(() => {
-    if (cardRef && cardRef.current && !cardRef.current.classList.contains('animated')) returnRef(cardRef.current, 'card');
+    if (
+      cardRef &&
+      cardRef.current &&
+      !cardRef.current.classList.contains('animated')
+    )
+      returnRef(cardRef.current, 'card');
   }, [cardRef, returnRef]);
 
   return (

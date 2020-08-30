@@ -13,7 +13,7 @@ export default function SearchClient({ urlParams, history, returnRef }) {
   async function endpointCallout(term, offset = 0) {
     // Fetch Results
     setLoading(true);
-    console.log(`Callout for term: ${term}`);
+    // console.log(`Callout for term: ${term}`);
     const endpoint = 'https://backtick.tilde.wtf';
     const params = `search?q=${term}&offset=${offset}`;
     console.log(`${endpoint}/${params}`);
@@ -34,9 +34,7 @@ export default function SearchClient({ urlParams, history, returnRef }) {
 
     if (updateCriteria) {
       console.log('Valid offset request. Fetching more...');
-
       const data = await endpointCallout(searchTerm, newOffset);
-
       setResultData((resultData) => ({
         results:
           data.results && data.results.length > 0

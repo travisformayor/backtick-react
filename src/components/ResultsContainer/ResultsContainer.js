@@ -54,7 +54,7 @@ export default function ResultsContainer(props) {
 
   useEffect(() => {
     if (fetching) {
-      console.log('Request more results...');
+      // console.log('Request more results...');
       setFetchMore(false);
       fetchMore(offset + 30);
     }
