@@ -1,19 +1,18 @@
 // to dos:
-// - header displays total found
-// - scroll lazy loads more results
+// - header shows displaying out of total found
 // - hover over cards effect
 // - gray out/indicate cards for already visited links
 // - add link to cyrus blog post, backend, site readme/post
+// - add end of truncated urls back on after the ...
+// - scroll lazy loads more results
+// - trigger load more on scroll before reaching the bottom
 // animations:
-// - header flex switch and shrink
-// - cards fade/pop in staggered first to last
-// - on new search, cards fade/pop first to last while waiting for backend
+// - bouncing loading dots
+// - fade in 'no more results' on attempts to scroll past end
 // - header black at first, title white with black shadow
 // - once mini image loads, fade in blurry version
 // - once full image loads, fade in over blurry version
-// - can fade in be splotchy and non-uniform, like a watercolor effect
-// - bouncing loading dots
-// - fade in 'no more results' on attempts to scroll past end
+// - fade in splotchy and non-uniform
 
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';

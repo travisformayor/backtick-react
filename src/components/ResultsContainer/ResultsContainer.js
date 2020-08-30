@@ -24,15 +24,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ResultsContainer(props) {
   // ResultsContainer.js handles displaying the result cards
   const { resultData, returnRef, fetchMore, loading } = props;
-  // to do: use loading for triggering bouncing ball animation
-  // const { results, query, offset, total } = searchData;
   const { results, query, offset, total } = resultData;
   const [fetching, setFetchMore] = useState(false);
   const style = useStyles();
 
   useEffect(() => {
     // Load more cards on scroll
-    // to do: trigger before reaching the bottom
     window.addEventListener('scroll', bottomScroll);
     function bottomScroll() {
       if (
