@@ -4,7 +4,7 @@ import ResultCard from '../ResultCard/ResultCard';
 
 const useStyles = makeStyles((theme) => ({
   results: {
-    paddingTop: '180px',
+    paddingTop: '200px',
     marginRight: '10px',
     marginLeft: '10px',
     display: 'grid',
@@ -33,8 +33,8 @@ export default function ResultsContainer(props) {
     window.addEventListener('scroll', bottomScroll);
     function bottomScroll() {
       if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight * 0.7
       ) {
         if (results.length < total) {
           if (!loading) {

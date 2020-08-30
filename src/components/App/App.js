@@ -1,11 +1,9 @@
 // to dos:
-// - header shows displaying out of total found
 // - hover over cards effect
 // - gray out/indicate cards for already visited links
-// - add link to cyrus blog post, backend, site readme/post
 // - add end of truncated urls back on after the ...
-// - scroll lazy loads more results
-// - trigger load more on scroll before reaching the bottom
+// - update readme. add to tildeverse blog
+// - info footer: blog post, github
 // animations:
 // - bouncing loading dots
 // - fade in 'no more results' on attempts to scroll past end
