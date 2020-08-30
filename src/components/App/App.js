@@ -56,12 +56,14 @@ export default function App() {
     // Animate populating cards
     if (refs.cards.length > 0) {
       console.log('=> run card animation');
+      console.log(`Cards to animate: ${refs.cards.length}`);
       // card opacity is set to 0 in ResultCard.js
       gsap.fromTo(
         refs.cards,
         { y: 50 },
         { duration: 0.2, opacity: 1, y: 0, stagger: 0.05 }
       );
+      refs.cards = []; // Remove refs for cards now loaded
     }
   }, [refs.cards]);
 
