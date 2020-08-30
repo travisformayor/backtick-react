@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     opacity: 0,
   },
-  loader: {
+  info: {
     display: 'flex',
     justifyContent: 'center',
   },
@@ -63,7 +63,6 @@ export default function ResultsContainer(props) {
   return (
     <>
       <div className={style.results}>
-        {results === [] && query ? <p>No Results for {query}</p> : ''}
         {results
           ? results.map((result, index) => (
               <ResultCard
@@ -74,8 +73,9 @@ export default function ResultsContainer(props) {
             ))
           : ''}
       </div>
-      <div className={style.loader}>
-        {loading ? <span>loading...</span> : <span></span>}
+      <div className={style.info}>
+        {results.length === 0 && query ? <p>No Results for {query}</p> : ''}
+        {loading ? <p>loading...</p> : <p></p>}
       </div>
     </>
   );
