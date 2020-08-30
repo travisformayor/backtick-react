@@ -50,10 +50,6 @@ export default function SearchClient({ urlParams, history, returnRef }) {
   }
 
   useEffect(() => {
-    console.log(`Loading State: ${loading}`);
-  }, [loading]);
-
-  useEffect(() => {
     // == Handle new search term
     if (searchTerm) {
       console.log(`New search term detected: ${searchTerm}`);
