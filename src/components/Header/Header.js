@@ -46,9 +46,21 @@ export default function Header({ setSearchTerm, existingTerm, returnRef }) {
 
   useEffect(() => {
     // Send the refs up on component mount
-    if (titleRef) returnRef(titleRef.current, 'title');
-    if (logoRef) returnRef(logoRef.current, 'logo');
-  });
+    if (
+      titleRef &&
+      titleRef.current &&
+      !titleRef.current.classList.contains('received')
+    ) {
+      returnRef(titleRef.current, 'title');
+    }
+    if (
+      logoRef &&
+      logoRef.current &&
+      !logoRef.current.classList.contains('received')
+    ) {
+      returnRef(logoRef.current, 'logo');
+    }
+  }, [titleRef, logoRef, returnRef]);
 
   return (
     <div className={style.header}>
