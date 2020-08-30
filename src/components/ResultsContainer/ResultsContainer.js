@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { gsap } from 'gsap';
-import ResultCard from '../ResultCard/ResultCard';
 import { makeStyles } from '@material-ui/core/styles';
+import ResultCard from '../ResultCard/ResultCard';
 
 const useStyles = makeStyles((theme) => ({
   results: {
@@ -23,36 +22,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ResultsContainer(props) {
-  const { resultData, fetchMore, loading } = props;
+  const { resultData, returnRef, fetchMore, loading } = props;
   // to do: use loading for triggering bouncing ball animation
   // const { results, query, offset, total } = searchData;
   const { results, query, offset, total } = resultData;
   const [fetching, setFetchMore] = useState(false);
   const style = useStyles();
-
-  // === Card Refs
-  let cardRefs = [];
-  function returnRef(ref) {
-    // Returns the child ref back to this component
-    if (ref) {
-      cardRefs.push(ref);
-      // console.log(ref);
-      return ref; // returned for ResultCard
-    }
-  }
-
-  useEffect(() => {
-    // Animate populating cards
-    if (cardRefs.length > 0) {
-      console.log('=> run animation');
-      // card opacity is set to 0 in ResultCard.js
-      gsap.fromTo(
-        cardRefs,
-        { y: 50 },
-        { duration: 0.2, opacity: 1, y: 0, stagger: 0.05 }
-      );
-    }
-  }, [cardRefs]);
 
   useEffect(() => {
     // Load more cards on scroll
