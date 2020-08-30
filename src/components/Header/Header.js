@@ -68,7 +68,6 @@ export default function Header({ setSearchTerm, existingTerm, returnRef }) {
         </Link>
         <SearchBar setSearchTerm={setSearchTerm} existingTerm={existingTerm} />
       </div>
-      {/* to do: add a 'displaying 30 of 130 results' line */}
     </div>
   );
 }
