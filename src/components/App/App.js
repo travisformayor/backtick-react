@@ -13,6 +13,7 @@
 // - once full image loads, fade in over blurry version
 // - can fade in be splotchy and non-uniform, like a watercolor effect
 // - bouncing loading dots
+// - fade in 'no more results' on attempts to scroll past end
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
@@ -31,16 +32,19 @@ export default function App() {
 
   // === GSAP Animations
   const headerTimeline = gsap.timeline({ paused: true });
-  const headerRefs = { title: null, logo: null };
+  const refs = { cards: [], title: null, logo: null };
 
   function returnRef(ref, item) {
     if (ref) {
       switch (item) {
-        case 'logo':
-          headerRefs.logo = ref;
+        case 'card':
+          refs.cards.push(ref);
           break;
         case 'title':
-          headerRefs.title = ref;
+          refs.title = ref;
+          break;
+        case 'logo':
+          refs.logo = ref;
           break;
         default:
           console.log(`Unexpected ref: ${item}`);
@@ -49,23 +53,36 @@ export default function App() {
   }
 
   useEffect(() => {
+    // Animate populating cards
+    if (refs.cards.length > 0) {
+      console.log('=> run card animation');
+      // card opacity is set to 0 in ResultCard.js
+      gsap.fromTo(
+        refs.cards,
+        { y: 50 },
+        { duration: 0.2, opacity: 1, y: 0, stagger: 0.05 }
+      );
+    }
+  }, [refs.cards]);
+
+  useEffect(() => {
     // Set header animations with updated refs
-    if (headerRefs.logo && headerRefs.title) {
+    if (refs.logo && refs.title) {
       // Hide Title
       headerTimeline.fromTo(
-        headerRefs.title,
+        refs.title,
         { opacity: 1, height: '90px', display: 'block' },
         { opacity: 0, height: '0px', display: 'none', duration: 0.2 }
       );
       // Expand Logo
       headerTimeline.fromTo(
-        headerRefs.logo,
+        refs.logo,
         { height: '0px', marginRight: '0px', opacity: 0 },
         { height: '40px', marginRight: '10px', opacity: 1, duration: 0.25 },
         '-=0.2'
       );
     }
-  }, [headerTimeline, headerRefs]);
+  }, [headerTimeline, refs.logo, refs.title]);
 
   useEffect(() => {
     // Scroll listener for header animations
@@ -173,6 +190,7 @@ export default function App() {
       />
       <ResultsContainer
         resultData={resultData}
+        returnRef={returnRef}
         fetchMore={fetchMore}
         loading={loading}
       />

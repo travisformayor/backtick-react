@@ -64,7 +64,7 @@ export default function ResultCard({ result, returnRef }) {
   );
 
   useEffect(() => {
-    if (cardRef) returnRef(cardRef.current);
+    if (cardRef) returnRef(cardRef.current, 'card');
   });
 
   return (
