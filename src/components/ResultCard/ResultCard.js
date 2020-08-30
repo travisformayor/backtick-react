@@ -28,7 +28,7 @@ export default function ResultCard({ result, returnRef }) {
   // ResultCard.js handles displaying individual results
   const style = useStyles();
   const id = newId('card');
-  let cardRef = useRef(null);
+  const cardRef = useRef(null);
 
   function truncObjText(obj, key, limit) {
     if (obj && obj[key]) {
@@ -62,8 +62,8 @@ export default function ResultCard({ result, returnRef }) {
   );
 
   useEffect(() => {
-    if (cardRef) returnRef(cardRef.current, 'card');
-  });
+    if (cardRef && cardRef.current && !cardRef.current.classList.contains('animated')) returnRef(cardRef.current, 'card');
+  }, [cardRef, returnRef]);
 
   return (
     <Card className={style.card} ref={cardRef} id={id}>

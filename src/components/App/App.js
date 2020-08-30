@@ -14,7 +14,7 @@
 // - once full image loads, fade in over blurry version
 // - fade in splotchy and non-uniform
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { gsap } from 'gsap';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -27,13 +27,14 @@ export default function App() {
 
   // === GSAP Animations
   const headerTimeline = gsap.timeline({ paused: true });
-  const refs = { cards: [], title: null, logo: null };
+  const refs = { title: null, logo: null };
+  const [cards, setCards] = useState([]);
 
   function returnRef(ref, item) {
     if (ref) {
       switch (item) {
         case 'card':
-          refs.cards.push(ref);
+          setCards(cards => [...cards, ref]);
           break;
         case 'title':
           refs.title = ref;
@@ -49,19 +50,22 @@ export default function App() {
 
   useEffect(() => {
     // Animate populating cards
-    console.log(refs.cards.length);
-    if (refs.cards.length > 0) {
+    console.log("Entering useEffect for cards", cards.length);
+    if (cards.length > 0) {
       console.log('=> run card animation');
-      console.log(`Cards to animate: ${refs.cards.length}`);
+      console.log(`Cards to animate: ${cards.length}`);
       // card opacity is set to 0 in ResultCard.js
       gsap.fromTo(
-        refs.cards,
+        cards.map(card => {
+          card.classList.add('animated');
+          return card;
+        }),
         { y: 50 },
         { duration: 0.2, opacity: 1, y: 0, stagger: 0.05 }
       );
-      refs.cards = []; // Remove refs for cards now loaded
+      setCards(() => []); // Remove refs for cards now loaded
     }
-  }, [refs.cards]);
+  }, [cards]);
 
   useEffect(() => {
     // Set header animations with updated refs
