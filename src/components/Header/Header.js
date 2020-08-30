@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ setSearchTerm, existingTerm, returnRef }) {
     // Header.js handles title bar and the search box
   const style = useStyles();
-  let titleRef = useRef(null);
-  let logoRef = useRef(null);
+  const titleRef = useRef(null);
+  const logoRef = useRef(null);
 
   useEffect(() => {
     // Send the refs up on component mount
