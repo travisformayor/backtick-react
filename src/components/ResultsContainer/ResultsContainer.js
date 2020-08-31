@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0,
   },
   info: {
+    paddingTop: '30px',
     display: 'flex',
     justifyContent: 'center',
     padding: '5px',

@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import axios from 'axios';
+
+const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  header: { zIndex: 2 },
+  content: {
+    flex: '1 0 auto',
+    paddingBottom: '40px',
+    boxShadow: '0px 2px 5px rgba(0,0,0,0.12)',
+    zIndex: 1,
+  },
+  footer: { flexShrink: '0' },
+}));
 
 export default function SearchClient({ urlParams, history, returnRef }) {
   // Search.js handles search, endpoint access, and displaying results
   const [searchTerm, setSearchTerm] = useState(urlParams.search);
   const [resultData, setResultData] = useState({ results: [], total: 0 });
   const [loading, setLoading] = useState(false);
+  const style = useStyles();
 
   // === Callout Functions
   async function endpointCallout(term, offset = 0) {
@@ -77,20 +96,27 @@ export default function SearchClient({ urlParams, history, returnRef }) {
   }, [searchTerm, history]);
 
   return (
-    <>
-      <Header
-        setSearchTerm={setSearchTerm}
-        existingTerm={searchTerm}
-        returnRef={returnRef}
-        current={resultData.results.length}
-        total={resultData.total}
-      />
-      <ResultsContainer
-        resultData={resultData}
-        returnRef={returnRef}
-        fetchMore={fetchMore}
-        loading={loading}
-      />
-    </>
+    <div className={style.wrapper}>
+      <div className={style.header}>
+        <Header
+          setSearchTerm={setSearchTerm}
+          existingTerm={searchTerm}
+          returnRef={returnRef}
+          current={resultData.results.length}
+          total={resultData.total}
+        />
+      </div>
+      <div className={style.content}>
+        <ResultsContainer
+          resultData={resultData}
+          returnRef={returnRef}
+          fetchMore={fetchMore}
+          loading={loading}
+        />
+      </div>
+      <div className={style.footer}>
+        <Footer />
+      </div>
+    </div>
   );
 }
