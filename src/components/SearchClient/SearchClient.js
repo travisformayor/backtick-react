@@ -35,10 +35,10 @@ export default function SearchClient({ urlParams, history, returnRef }) {
     // console.log(`Callout for term: ${term}`);
     const endpoint = 'https://backtick.tilde.wtf';
     const params = `search?q=${term}&offset=${offset}`;
-    console.log(`${endpoint}/${params}`);
+    // console.log(`${endpoint}/${params}`);
     const res = await axios(`${endpoint}/${params}`);
-    console.log('api response:');
-    console.log(res.data);
+    // console.log('api response:');
+    // console.log(res.data);
     setLoading(false);
     return res.data;
   }
@@ -52,7 +52,7 @@ export default function SearchClient({ urlParams, history, returnRef }) {
       !loading; // Not already performing a callout
 
     if (updateCriteria) {
-      console.log('Valid offset request. Fetching more...');
+      // console.log('Valid offset request. Fetching more...');
       const data = await endpointCallout(searchTerm, newOffset);
       setResultData((resultData) => ({
         results:
@@ -64,14 +64,14 @@ export default function SearchClient({ urlParams, history, returnRef }) {
         total: data.total ? parseInt(data.total) : 0,
       }));
     } else {
-      console.log('Failed requirements for fetchMore');
+      // console.log('Failed requirements for fetchMore');
     }
   }
 
   useEffect(() => {
     // == Handle new search term
     if (searchTerm) {
-      console.log(`New search term detected: ${searchTerm}`);
+      // console.log(`New search term detected: ${searchTerm}`);
       history.push(`/search=${searchTerm}`);
 
       setResultData({ results: [] }); // Clear previous search results
@@ -88,7 +88,7 @@ export default function SearchClient({ urlParams, history, returnRef }) {
       }
     } else {
       // searchTerm was changed to null
-      console.log(`Blank search`);
+      // console.log(`Blank search`);
       history.push('/');
 
       setResultData({ results: [] }); // Clear previous search results

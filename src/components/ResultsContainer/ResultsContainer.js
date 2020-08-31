@@ -46,10 +46,10 @@ export default function ResultsContainer(props) {
           if (!loading) {
             setFetchMore(true);
           } else {
-            console.log('Still loading results...');
+            // console.log('Still loading results...');
           }
         } else {
-          console.log('No more results');
+          // console.log('No more results');
         }
       }
     }

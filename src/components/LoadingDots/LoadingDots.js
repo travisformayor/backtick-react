@@ -47,8 +47,7 @@ export default function LoadingDots() {
     // Animate the dots
     if (dotRefs.length === 5) {
       const tl = gsap.timeline({ repeat: -1 });
-      console.log(dotRefs.length);
-      console.log('add Dot animation');
+      // console.log('add Dot animation');
       tl.to(dotRefs, { duration: 0.2, y: 10, stagger: 0.05 });
       tl.to(dotRefs, { duration: 0.2, y: 0, stagger: 0.0 });
     }

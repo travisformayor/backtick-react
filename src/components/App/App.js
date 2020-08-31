@@ -40,7 +40,7 @@ export default function App() {
           setCardRefs((cards) => [...cards, ref]);
           break;
         default:
-          console.log(`Unexpected ref: ${item}`);
+          // console.log(`Unexpected ref: ${item}`);
       }
     }
   }
@@ -58,7 +58,7 @@ export default function App() {
   useEffect(() => {
     // Add header animations to timeline
     if (headerTimeline && titleRef && logoRef) {
-      console.log('Add header animation');
+      // console.log('Add header animation');
       // Hiding/Showing Title
       headerTimeline.fromTo(
         titleRef,
@@ -78,8 +78,7 @@ export default function App() {
   useEffect(() => {
     // Scroll listener for header animations
     if (headerTimeline) {
-      console.log('add header scroll listener');
-      console.log(headerTimeline);
+      // console.log('add header scroll listener');
       window.addEventListener('scroll', resizeOnScroll);
       function resizeOnScroll() {
         const scrollY =
