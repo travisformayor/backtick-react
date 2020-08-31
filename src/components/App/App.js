@@ -5,7 +5,6 @@
 // - update readme. add to tildeverse blog
 // - info footer: blog post, github
 // animations:
-// - bouncing loading dots
 // - fade in 'no more results' on attempts to scroll past end
 // - header black at first, title white with black shadow
 // - once mini image loads, fade in blurry version

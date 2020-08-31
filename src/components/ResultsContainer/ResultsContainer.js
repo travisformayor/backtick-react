@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ResultCard from '../ResultCard/ResultCard';
+import LoadingDots from '../LoadingDots/LoadingDots';
 
 const useStyles = makeStyles((theme) => ({
   results: {
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   info: {
     display: 'flex',
     justifyContent: 'center',
+    padding: '5px',
+    height: '1rem',
+    fontSize: '1rem',
+    color: '#1b1b1b',
   },
 }));
 
@@ -74,8 +79,10 @@ export default function ResultsContainer(props) {
           : ''}
       </div>
       <div className={style.info}>
-        {results.length === 0 && query ? <p>No Results for {query}</p> : ''}
-        {loading ? <p>loading...</p> : <p></p>}
+        <span>
+          {results.length === 0 && query ? `No Results for ${query}` : ''}
+        </span>
+        {loading ? <LoadingDots /> : <div />}
       </div>
     </>
   );
