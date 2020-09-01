@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '5px',
     height: '1rem',
     fontSize: '1rem',
-    color: '#1b1b1b',
   },
 }));
 

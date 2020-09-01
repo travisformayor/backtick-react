@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '5px',
     height: '8px',
     width: '8px',
-    backgroundColor: '#1b1b1b',
+    backgroundColor: '#FFFFFF',
     borderRadius: '50%',
     display: 'inline-block',
   },

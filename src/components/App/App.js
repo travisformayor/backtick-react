@@ -15,7 +15,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { gsap } from 'gsap';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import SearchClient from '../SearchClient/SearchClient';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 export default function App() {
   // App.js handles top level code, like animations and url control
@@ -40,7 +48,7 @@ export default function App() {
           setCardRefs((cards) => [...cards, ref]);
           break;
         default:
-          // console.log(`Unexpected ref: ${item}`);
+        // console.log(`Unexpected ref: ${item}`);
       }
     }
   }
@@ -115,13 +123,13 @@ export default function App() {
   }, [cardRefs]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <SearchClient
         urlParams={urlParams}
         history={history}
         returnRef={returnRef}
       />
-    </>
+    </ThemeProvider>
   );
 }

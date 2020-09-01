@@ -6,9 +6,9 @@ import logo from './backtick-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: 'white',
+    backgroundColor: '#262626',
     padding: '15px',
-    boxShadow: '0px 2px 5px rgba(0,0,0,0.12)',
+    boxShadow: '0px 4px 3px rgba(0,0,0,0.3)',
     // Fixed Header
     position: 'fixed',
     top: 0,
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '5px',
     height: '.75rem',
     fontSize: '.75rem',
-    color: '#616161',
   },
 }));
 

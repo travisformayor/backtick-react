@@ -4,8 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: 'white',
-    padding: '20px',
+    backgroundColor: '#262626',
+    boxShadow: '0px -4px 3px rgba(0,0,0,0.3)',
+    padding: '10px',
+    paddingBottom: '25px',
     // Flex Box
     display: 'flex',
     flexDirection: 'column',
@@ -21,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '15px',
     height: '.8rem',
     fontSize: '.8rem',
-    color: '#616161',
   },
 }));
 

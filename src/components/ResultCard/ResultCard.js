@@ -17,7 +17,6 @@ const useStyles = makeStyles({
   },
   match: {
     fontWeight: 800,
-    color: '#212121',
   },
   subtitle: {
     fontSize: '.75rem',

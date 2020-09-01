@@ -11,14 +11,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     height: '100%',
   },
-  header: { zIndex: 2 },
+  header: {
+    zIndex: 2,
+  },
   content: {
     flex: '1 0 auto',
     paddingBottom: '40px',
-    boxShadow: '0px 2px 5px rgba(0,0,0,0.12)',
     zIndex: 1,
   },
-  footer: { flexShrink: '0' },
+  footer: {
+    flexShrink: '0',
+  },
 }));
 
 export default function SearchClient({ urlParams, history, returnRef }) {
