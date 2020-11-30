@@ -6,21 +6,15 @@ import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
-  wrapper: {
+  site: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    minHeight: '100vh',
   },
-  header: {
-    zIndex: 2,
-  },
-  content: {
+  results: {
+    // Grows to fit content
     flex: '1 0 auto',
     paddingBottom: '40px',
-    zIndex: 1,
-  },
-  footer: {
-    flexShrink: '0',
   },
 }));
 
@@ -99,17 +93,15 @@ export default function SearchClient({ urlParams, history, returnRef }) {
   }, [searchTerm, history]);
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.header}>
-        <Header
-          setSearchTerm={setSearchTerm}
-          existingTerm={searchTerm}
-          returnRef={returnRef}
-          current={resultData.results.length}
-          total={resultData.total}
-        />
-      </div>
-      <div className={style.content}>
+    <div className={style.site}>
+      <Header
+        setSearchTerm={setSearchTerm}
+        existingTerm={searchTerm}
+        returnRef={returnRef}
+        current={resultData.results.length}
+        total={resultData.total}
+      />
+      <div className={style.results}>
         <ResultsContainer
           resultData={resultData}
           returnRef={returnRef}
@@ -117,9 +109,7 @@ export default function SearchClient({ urlParams, history, returnRef }) {
           loading={loading}
         />
       </div>
-      <div className={style.footer}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }
