@@ -1,15 +1,7 @@
-// to dos:
-// - hover over cards effect
-// - gray out/indicate cards for already visited links
+// To Do:
+// - Indicate/grey out cards for already visited links
 // - add end of truncated urls back on after the ...
-// - update readme. add to tildeverse blog
-// - info footer: blog post, github
-// animations:
-// - fade in 'no more results' on attempts to scroll past end
-// - header black at first, title white with black shadow
-// - once mini image loads, fade in blurry version
-// - once full image loads, fade in over blurry version
-// - fade in splotchy and non-uniform
+// - end of results text below last scroll load
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
@@ -26,7 +18,7 @@ const theme = createMuiTheme({
 });
 
 export default function App() {
-  // App.js handles top level code, like animations and url control
+  // App.js handles animations and url control
   const [cardRefs, setCardRefs] = useState([]);
   const [titleRef, setTitleRef] = useState(null);
   const [logoRef, setLogoRef] = useState(null);
