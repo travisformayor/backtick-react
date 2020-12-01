@@ -2,6 +2,7 @@
 // - Indicate/grey out cards for already visited links
 // - add end of truncated urls back on after the ...
 // - end of results text below last scroll load
+// - fix not loading more cars when screen fits all initial 30
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';

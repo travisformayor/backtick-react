@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ResultsContainer(props) {
-  // ResultsContainer.js handles displaying the result cards
+  // ResultsContainer.js handles display result cards and infinite scroll
   const { resultData, returnRef, fetchMore, loading } = props;
   const { results, query, offset, total } = resultData;
   const [fetching, setFetchMore] = useState(false);
@@ -35,7 +35,6 @@ export default function ResultsContainer(props) {
 
   useEffect(() => {
     // Load more cards on scroll
-    window.addEventListener('scroll', bottomScroll);
     function bottomScroll() {
       if (
         window.innerHeight + document.documentElement.scrollTop >=
@@ -53,11 +52,13 @@ export default function ResultsContainer(props) {
       }
     }
 
-    // Remove event listener on component unmount
+    // Add/Remove event listener on component mount/unmount
+    window.addEventListener('scroll', bottomScroll);
     return () => window.removeEventListener('scroll', bottomScroll);
   });
 
   useEffect(() => {
+    // Debounce fetchMore request
     if (fetching) {
       // console.log('Request more results...');
       setFetchMore(false);
